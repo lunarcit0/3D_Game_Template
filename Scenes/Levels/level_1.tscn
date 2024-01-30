@@ -1,0 +1,136 @@
+[gd_scene load_steps=18 format=3 uid="uid://bawhgqqnmrqgi"]
+
+[ext_resource type="PackedScene" uid="uid://b0q0bnia378s4" path="res://Scenes/Player.tscn" id="1_gx7wk"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_misfq"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_7mcwy"]
+sky_material = SubResource("ProceduralSkyMaterial_misfq")
+
+[sub_resource type="Environment" id="Environment_s52bs"]
+background_mode = 2
+sky = SubResource("Sky_7mcwy")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_ay3g5"]
+top_radius = 0.235
+bottom_radius = 1.08
+height = 6.95
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_p03hw"]
+albedo_color = Color(0.823529, 0.341176, 0.329412, 1)
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_thwnn"]
+height = 7.01218
+radius = 0.653565
+
+[sub_resource type="BoxMesh" id="BoxMesh_le8mi"]
+size = Vector3(100, 1, 50)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_45nch"]
+albedo_color = Color(0.698039, 0.411765, 0.286275, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_b2h4s"]
+size = Vector3(100, 1, 50)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_fbi60"]
+radius = 2.105
+height = 4.21
+radial_segments = 20
+rings = 1
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_81af5"]
+albedo_color = Color(0.337255, 0.607843, 0.341176, 1)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_04yi1"]
+radius = 1.93366
+height = 3.86733
+
+[sub_resource type="SphereMesh" id="SphereMesh_wv0bo"]
+radius = 3.97
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ld3d6"]
+albedo_color = Color(0.337255, 0.623529, 0.47451, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_fblsj"]
+radius = 0.4
+height = 0.1
+radial_segments = 44
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bvfuy"]
+albedo_color = Color(0.756863, 0.607843, 0.341176, 1)
+
+[node name="Level 1" type="Node3D"]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_s52bs")
+
+[node name="Plant" type="StaticBody3D" parent="."]
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Plant"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.50387, 3.18113, 0.782425)
+mesh = SubResource("CylinderMesh_ay3g5")
+skeleton = NodePath("../../Ground")
+surface_material_override/0 = SubResource("StandardMaterial3D_p03hw")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Plant"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.504, 3.181, 0.782)
+shape = SubResource("CylinderShape3D_thwnn")
+
+[node name="Ground" type="StaticBody3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ground"]
+mesh = SubResource("BoxMesh_le8mi")
+surface_material_override/0 = SubResource("StandardMaterial3D_45nch")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0262451, 0, 0)
+shape = SubResource("BoxShape3D_b2h4s")
+
+[node name="Leaves" type="StaticBody3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Leaves"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.37333, 4.87221, 0.985673)
+mesh = SubResource("CapsuleMesh_fbi60")
+surface_material_override/0 = SubResource("StandardMaterial3D_81af5")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Leaves"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.373, 4.872, 0.986)
+shape = SubResource("CapsuleShape3D_04yi1")
+
+[node name="Player" parent="." instance=ExtResource("1_gx7wk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.66975, 0)
+
+[node name="bush" type="StaticBody3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="bush"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.79171, 0.506304, 1.61966)
+mesh = SubResource("SphereMesh_wv0bo")
+surface_material_override/0 = SubResource("StandardMaterial3D_ld3d6")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="bush"]
+transform = Transform3D(0.995195, 0.097913, 0, -0.0978655, 0.994713, 0.0311142, 0.00304648, -0.0309647, 0.999516, -3.57759, 0.785673, -0.390483)
+mesh = SubResource("SphereMesh_fblsj")
+surface_material_override/0 = SubResource("StandardMaterial3D_bvfuy")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="bush"]
+transform = Transform3D(0.995195, 0.097913, 0, -0.0978655, 0.994713, 0.0311142, 0.00304648, -0.0309647, 0.999516, -3.67654, 0.883562, 1.81438)
+mesh = SubResource("SphereMesh_fblsj")
+surface_material_override/0 = SubResource("StandardMaterial3D_bvfuy")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="bush"]
+transform = Transform3D(0.998881, -0.047089, -0.00450335, 0.0464813, 0.99473, -0.0913923, 0.00878319, 0.0910807, 0.995805, -5.76954, 0.827304, 4.3471)
+mesh = SubResource("SphereMesh_fblsj")
+surface_material_override/0 = SubResource("StandardMaterial3D_bvfuy")
+
+[node name="MeshInstance3D5" type="MeshInstance3D" parent="bush"]
+transform = Transform3D(0.998881, -0.047089, -0.00450335, 0.0464813, 0.99473, -0.0913923, 0.00878319, 0.0910807, 0.995805, -5.76954, 0.924978, 2.99876)
+mesh = SubResource("SphereMesh_fblsj")
+surface_material_override/0 = SubResource("StandardMaterial3D_bvfuy")
